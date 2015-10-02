@@ -447,6 +447,13 @@ void initializeRogue(unsigned long seed) {
     player.status[STATUS_DONNING] = 0;
     
     recalculateEquipmentBonuses();
+
+    // Initialize regex patterns
+    FILE *f = fopen("patterns.regex", "r");
+    rogue.numRegexpPatterns = 0;
+    while(fscanf(f, "%d %[^\n]", &(rogue.depthRegexpMatch[rogue.numRegexpPatterns]), rogue.regexpMatch[rogue.numRegexpPatterns]) != EOF && rogue.numRegexpPatterns < MAX_REGEXP_COUNT - 1)
+        rogue.numRegexpPatterns++;
+    fclose(f);
 	
 	DEBUG {
 		theItem = generateItem(RING, RING_CLAIRVOYANCE);

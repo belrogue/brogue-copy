@@ -23,6 +23,7 @@
 
 #include <math.h>
 #include <time.h>
+#include <regex.h>
 
 #include "Rogue.h"
 #include "IncludeGlobals.h"
@@ -2484,7 +2485,8 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             exploreKey(controlKey);
 			break;
 		case AUTOPLAY_KEY:
-			autoPlayLevel(controlKey);
+			if(confirm("Really autoplay?", false))
+				autoPlayLevel(controlKey);
 			break;
 		case MESSAGE_ARCHIVE_KEY:
 			displayMessageArchive();
@@ -3023,7 +3025,7 @@ void message(const char *msg, boolean requireAcknowledgment) {
 	short i, lines;
 	
 	assureCosmeticRNG;
-	
+
 	rogue.disturbed = true;
 	if (requireAcknowledgment) {
 		refreshSideBar(-1, -1, false);
@@ -3060,6 +3062,19 @@ void message(const char *msg, boolean requireAcknowledgment) {
 	}
 	
 	messageWithoutCaps(msgPtr, requireAcknowledgment);
+	boolean nomatch = true;
+        for(i = 0; i < rogue.numRegexpPatterns; i++) {
+		regex_t r;
+		int status = regcomp (&r, rogue.regexpMatch[i], REG_EXTENDED|REG_NEWLINE|REG_ICASE);
+		regmatch_t m[100];
+		char *p = msg;
+		nomatch = (boolean)(regexec(&r, p, 100, m, 0)) || (rogue.depthLevel > rogue.depthRegexpMatch[i]);
+		if(!nomatch)
+			break;
+	}
+	if(!nomatch) {
+		displayMoreSign();
+	}
 	restoreRNG;
 }
 

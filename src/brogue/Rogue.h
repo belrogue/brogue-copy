@@ -98,6 +98,7 @@
 
 #define MESSAGE_LINES			3
 #define MESSAGE_ARCHIVE_LINES	ROWS
+#define MAX_REGEXP_COUNT	200
 
 // Size of the entire terminal window. These need to be hard-coded here and in Viewport.h
 #define COLS					100
@@ -2320,6 +2321,12 @@ typedef struct playerCharacter {
 	enum NGCommands nextGame;
 	char nextGamePath[BROGUE_FILENAME_MAX];
 	unsigned long nextGameSeed;
+
+
+	// Regex
+	char regexpMatch[MAX_REGEXP_COUNT][COLS*2];
+	int depthRegexpMatch[MAX_REGEXP_COUNT];
+	int numRegexpPatterns;
 } playerCharacter;
 
 // Stores the necessary info about a level so it can be regenerated:
