@@ -2,3 +2,4 @@
 /testing/*
 /src/*.o
 /src/*/*.o
+!/bin/patterns.regex

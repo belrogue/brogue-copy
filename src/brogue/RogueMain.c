@@ -455,6 +455,7 @@ void initializeRogue(unsigned long seed) {
         rogue.numRegexpPatterns++;
     fclose(f);
 	
+    rogue.acknowledgeMonsters = true;
 	DEBUG {
 		theItem = generateItem(RING, RING_CLAIRVOYANCE);
 		theItem->enchant1 = max(DROWS, DCOLS);

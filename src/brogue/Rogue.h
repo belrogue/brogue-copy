@@ -2327,6 +2327,9 @@ typedef struct playerCharacter {
 	char regexpMatch[MAX_REGEXP_COUNT][COLS*2];
 	int depthRegexpMatch[MAX_REGEXP_COUNT];
 	int numRegexpPatterns;
+
+
+	boolean acknowledgeMonsters;
 } playerCharacter;
 
 // Stores the necessary info about a level so it can be regenerated:

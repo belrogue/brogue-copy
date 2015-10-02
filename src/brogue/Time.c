@@ -2332,7 +2332,7 @@ void playerTurnEnded() {
 				monst->bookkeepingFlags |= MB_WAS_VISIBLE;
 				if (monst->creatureState != MONSTER_ALLY) {
 					rogue.disturbed = true;
-					if (rogue.cautiousMode || rogue.automationActive) {
+					if (rogue.cautiousMode || rogue.automationActive || rogue.acknowledgeMonsters) {
                         oldRNG = rogue.RNG;
                         rogue.RNG = RNG_COSMETIC;
 						//assureCosmeticRNG;
