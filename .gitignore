@@ -1,0 +1,4 @@
+/bin/*
+/testing/*
+/src/*.o
+/src/*/*.o
